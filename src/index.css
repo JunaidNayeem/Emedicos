@@ -5,3 +5,11 @@ body {
 button {
   background-color: #8579a7 !important;
 }
+.ant-layout-content {
+  height: 100vh;
+  background-image: url(./assets/images/vector1.svg),
+    url(./assets/images/vector2.svg);
+  background-repeat: no-repeat, no-repeat;
+  background-position: top right, bottom left;
+  background-size: calc(20%), calc(20%);
+}

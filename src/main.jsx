@@ -1,10 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+
 import Home from "./App.jsx";
 import Login from "./Components/Login.jsx";
 import "./index.css";
 import AdminForm from "./Components/AdminForm.jsx";
+import Layout from "antd/es/layout/layout.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
