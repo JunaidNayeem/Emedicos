@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./App.jsx";
 import Login from "./Components/Login.jsx";
 import "./index.css";
+import AdminForm from "./Components/AdminForm.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -11,6 +12,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/admin" element={<AdminForm />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>
