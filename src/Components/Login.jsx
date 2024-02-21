@@ -1,38 +1,43 @@
-import React, { Component } from "react";
-import "../assets/sass/login.scss";
+import { Form, Input, Button, Layout, Card } from "antd";
+import { useNavigate } from "react-router-dom";
 import HeaderComponent from "./Header";
+import "../assets/sass/login.scss";
+
 const { Content } = Layout;
-import { Form, Input, Button,Layout } from 'antd';
 
-export default class Login extends Component {
-  constructor(props) {
-    super(props);
-    this.formRef = React.createRef();
-  }
+const Login = () => {
+  const navigate = useNavigate();
 
-  render() {
-    return (
-      <>
-        <HeaderComponent />
-        <Content>
-          <div className="LoginForm-Container">
-            <h1>Login</h1>
-            <Form
-              ref={this.formRef}
-              name="login"
-              style={{ maxWidth: 600 }}
-            >
+  const onFinish = (values) => {
+    console.log("Success:", values);
+    const { email, password } = values;
+    if (email === "admin@gmail.com" && password === "Admin@123") {
+      navigate("/admin");
+    }
+    if (email === "normal@gmail.com" && password === "Normal@123") {
+      navigate("/location");
+    }
+  };
+
+  return (
+    <>
+      <HeaderComponent />
+      <Content>
+        <div className="LoginForm-Container">
+          <h1>Login</h1>
+          <Card>
+            <Form name="login" style={{ maxWidth: 600 }} onFinish={onFinish}>
               <Form.Item
                 name="email"
                 label="E-mail"
                 rules={[
                   {
-                    type: 'email',
-                    message: 'The input is not a valid E-mail!',
+                    type: "email",
+                    message: "The input is not a valid E-mail!",
                   },
                   {
                     required: true,
-                    message: 'Please input your E-mail!',
+                    message: "Please input your E-mail!",
                   },
                 ]}
               >
@@ -45,7 +50,7 @@ export default class Login extends Component {
                 rules={[
                   {
                     required: true,
-                    message: 'Please input your password!',
+                    message: "Please input your password!",
                   },
                 ]}
               >
@@ -53,18 +58,17 @@ export default class Login extends Component {
               </Form.Item>
 
               <Form.Item>
-                <Button type="primary" htmlType="submit" >
+                <Button type="primary" htmlType="submit">
                   Login
                 </Button>
                 <a className="forgot">Forgot password ?</a>
               </Form.Item>
-           
             </Form>
-          </div>
-        </Content>
-      </>
-    );
-  }
-}
+          </Card>
+        </div>
+      </Content>
+    </>
+  );
+};
 
-
+export default Login;
