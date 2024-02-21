@@ -1,4 +1,4 @@
-import { Form, Input, Button, Layout, Card } from "antd";
+import { Form, Input, Button, Layout, Card, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import HeaderComponent from "./Header";
 import "../assets/sass/login.scss";
@@ -9,13 +9,15 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     const { email, password } = values;
     if (email === "admin@gmail.com" && password === "Admin@123") {
+      message.success("Logged in Successfully");
       navigate("/admin");
-    }
-    if (email === "normal@gmail.com" && password === "Normal@123") {
+    } else if (email === "normal@gmail.com" && password === "Normal@123") {
+      message.success("Logged in Successfully");
       navigate("/location");
+    } else {
+      message.error("Wrong Credentials");
     }
   };
 
