@@ -11,8 +11,8 @@ const tabListNoTitle = [
         tab: 'Specialist',
     },
     {
-        key: 'Experiance',
-        tab: 'Experiance',
+        key: 'Experience',
+        tab: 'Experience',
     },
 
 ];

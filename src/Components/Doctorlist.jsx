@@ -11,7 +11,7 @@ class Doctorlist extends Component {
         super(props);
         this.state = {
             selectedDoctorlist: null,
-            Doctorlists: ['Hakim A', 'Hakim B', 'Hakim C'] 
+            Doctorlists: ['Doctor A', 'Doctor B', 'Doctor C'] 
         };
     }
 
