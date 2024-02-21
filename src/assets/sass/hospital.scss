@@ -1,0 +1,23 @@
+.hospital {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 60vh; 
+
+    h2 {
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: 500;
+        font-family: cursive;
+    }
+
+    .ant-select {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .ant-btn-primary {
+        margin-top: 20px;
+    }
+}

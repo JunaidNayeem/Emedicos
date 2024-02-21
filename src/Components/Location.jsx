@@ -3,10 +3,11 @@ import { CitySelect, CountrySelect, StateSelect, LanguageSelect } from 'react-co
 import 'react-country-state-city/dist/react-country-state-city.css';
 import HeaderComponent from "./Header";
 import "../assets/sass/location.scss";
-
 const { Content } = Layout;
-import { Layout } from 'antd';
-class App extends Component {
+import { Layout,Button  } from 'antd';
+import { Link } from 'react-router-dom';
+
+export default class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -50,14 +51,13 @@ class App extends Component {
                             }}
                             placeHolder="Select City"
                         />
+                        <Link to="/hospital"> 
+                            <Button type="primary" style={{ marginTop: '20px' }}>Next</Button>
+                        </Link>
                     </div>
                 </Content>
             </>
-
-
-
         );
     }
 }
 
-export default App;
