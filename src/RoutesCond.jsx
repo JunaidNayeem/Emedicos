@@ -13,7 +13,10 @@ import DoctorDetails from "./Components/DoctorDetails.jsx";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  
+  const Unauthorized = () => {
+    alert("Please Login first !!!")
+    return <Login />;
+  }
   return (
 
     <BrowserRouter>
@@ -30,10 +33,11 @@ const App = () => {
             <Route path="/doctordetails" element={<DoctorDetails />} />
           </>
         ) : (
-
-          window.alert("Please login First !!!")
+          
+          <Route path="*" element={<Unauthorized />}  /> 
         )}
       </Routes>
+      
     </BrowserRouter>
 
   );
