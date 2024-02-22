@@ -14,25 +14,20 @@ import { message } from "antd";
 
 const RoutesCond = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-<<<<<<< HEAD
-  const Unauthorized = () => {
-    alert("Please Login first !!!")
-    
-    return <Register />;
-  }
-=======
   useEffect(() => {
     setIsLoggedIn(localStorage.getItem("authorized"));
   }, []);
->>>>>>> 4511da4df89be08297f19ca7d0c906bd27d31f67
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
+        <Route
+          path="/login"
+          element={<Login setIsLoggedIn={setIsLoggedIn} />}
+        />
         <Route path="/register" element={<Register />} />
         {isLoggedIn ? (
           <>
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/admin" element={<AdminForm />} />
             <Route path="/location" element={<Location />} />
             <Route path="/hospital" element={<Hospital />} />

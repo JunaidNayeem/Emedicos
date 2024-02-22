@@ -11,35 +11,25 @@ const Login = () => {
 
   const onFinish = async (values) => {
     const { email, password } = values;
-    const response = await fetch('http://localhost:5000/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      });
-      const data = await response.json();
+    const response = await fetch("http://localhost:5000/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    const data = await response.json();
     if (email === "admin@gmail.com" && password === "Admin@123") {
       localStorage.setItem("authorized", true);
       message.success("Logged in Successfully");
       navigate("/admin");
-<<<<<<< HEAD
-    } else if (response.ok){
-      alert(`Welcome , ${data.user.name}!`);
-        form.resetFields();
-=======
-    } else if (email === "normal@gmail.com" && password === "Normal@123") {
-      localStorage.setItem("authorized", true);
-      message.success("Logged in Successfully");
+    } else if (response.ok) {
+      message.success(`Welcome , ${data.user.name}!`);
+      form.resetFields();
       navigate("/location");
     } else {
       message.error("Wrong Credentials");
->>>>>>> 4511da4df89be08297f19ca7d0c906bd27d31f67
     }
-    else {
-        alert('Login failed. Please check your credentials.');
-      }
-    
   };
 
   return (
