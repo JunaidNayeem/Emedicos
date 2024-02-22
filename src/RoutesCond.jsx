@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-import { BrowserRouter, Route, Routes  } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import Home from "./App.jsx";
 import Login from "./Components/Login.jsx";
@@ -12,15 +12,20 @@ import Doctorlist from "./Components/Doctorlist.jsx";
 import DoctorDetails from "./Components/DoctorDetails.jsx";
 import { message } from "antd";
 
-const App = () => {
+const RoutesCond = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+<<<<<<< HEAD
   const Unauthorized = () => {
     alert("Please Login first !!!")
     
     return <Register />;
   }
+=======
+  useEffect(() => {
+    setIsLoggedIn(localStorage.getItem("authorized"));
+  }, []);
+>>>>>>> 4511da4df89be08297f19ca7d0c906bd27d31f67
   return (
-
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
@@ -35,14 +40,11 @@ const App = () => {
             <Route path="/doctordetails" element={<DoctorDetails />} />
           </>
         ) : (
-          
-          <Route path="*" element={<Unauthorized />}  /> 
+          <Route path="*" element={<Login />} />
         )}
       </Routes>
-      
     </BrowserRouter>
-
   );
 };
 
-export default App;
+export default RoutesCond;
