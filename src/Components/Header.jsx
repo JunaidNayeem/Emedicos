@@ -1,14 +1,16 @@
 import React from "react";
 import { Layout, Menu, Dropdown, Avatar } from "antd";
 import { UserOutlined, LogoutOutlined } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
 const HeaderComponent = () => {
-  // Dummy function for logout (replace with actual logout logic)
+  const navigate = useNavigate();
+
   const handleLogout = () => {
-    console.log("Logout clicked");
-    // Implement your logout logic here
+    localStorage.setItem("authorized", false);
+    navigate("/");
   };
   const headerStyle = {
     display: "inline-flex",

@@ -11,9 +11,11 @@ const Login = () => {
   const onFinish = (values) => {
     const { email, password } = values;
     if (email === "admin@gmail.com" && password === "Admin@123") {
+      localStorage.setItem("authorized", true);
       message.success("Logged in Successfully");
       navigate("/admin");
     } else if (email === "normal@gmail.com" && password === "Normal@123") {
+      localStorage.setItem("authorized", true);
       message.success("Logged in Successfully");
       navigate("/location");
     } else {
