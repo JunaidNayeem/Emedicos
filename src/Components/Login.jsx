@@ -7,18 +7,29 @@ const { Content } = Layout;
 
 const Login = () => {
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
-  const onFinish = (values) => {
+  const onFinish = async (values) => {
     const { email, password } = values;
+    const response = await fetch('http://localhost:5000/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      });
+      const data = await response.json();
     if (email === "admin@gmail.com" && password === "Admin@123") {
       message.success("Logged in Successfully");
       navigate("/admin");
-    } else if (email === "normal@gmail.com" && password === "Normal@123") {
-      message.success("Logged in Successfully");
-      navigate("/location");
-    } else {
-      message.error("Wrong Credentials");
+    } else if (response.ok){
+      alert(`Welcome , ${data.user.name}!`);
+        form.resetFields();
     }
+    else {
+        alert('Login failed. Please check your credentials.');
+      }
+    
   };
 
   return (

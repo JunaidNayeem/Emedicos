@@ -10,12 +10,14 @@ import Location from "./Components/Location.jsx";
 import Hospital from "./Components/Hospital.jsx";
 import Doctorlist from "./Components/Doctorlist.jsx";
 import DoctorDetails from "./Components/DoctorDetails.jsx";
+import { message } from "antd";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const Unauthorized = () => {
     alert("Please Login first !!!")
-    return <Login />;
+    
+    return <Register />;
   }
   return (
 
