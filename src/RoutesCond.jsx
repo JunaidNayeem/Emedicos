@@ -20,14 +20,11 @@ const RoutesCond = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route
-          path="/login"
-          element={<Login setIsLoggedIn={setIsLoggedIn} />}
-        />
+        <Route path="/" element={<Login setIsLoggedIn={setIsLoggedIn} />} />
         <Route path="/register" element={<Register />} />
         {isLoggedIn ? (
           <>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/admin" element={<AdminForm />} />
             <Route path="/location" element={<Location />} />
             <Route path="/hospital" element={<Hospital />} />

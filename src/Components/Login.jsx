@@ -11,25 +11,27 @@ const Login = () => {
 
   const onFinish = async (values) => {
     const { email, password } = values;
-    const response = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const data = await response.json();
-    if (email === "admin@gmail.com" && password === "Admin@123") {
-      localStorage.setItem("authorized", true);
-      message.success("Logged in Successfully");
-      navigate("/admin");
-    } else if (response.ok) {
-      message.success(`Welcome , ${data.user.name}!`);
-      form.resetFields();
-      navigate("/location");
-    } else {
-      message.error("Wrong Credentials");
-    }
+    localStorage.setItem("authorized", true);
+    navigate("/location");
+    // const response = await fetch("http://localhost:5000/login", {
+    //   method: "POST",
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   body: JSON.stringify(values),
+    // });
+    // const data = await response.json();
+    // if (email === "admin@gmail.com" && password === "Admin@123") {
+    //   localStorage.setItem("authorized", true);
+    //   message.success("Logged in Successfully");
+    //   navigate("/admin");
+    // } else if (email === "normal@gmail.com" && password === "Normal@123") {
+    //   message.success(`Welcome , ${data.user.name}!`);
+    //   form.resetFields();
+    //   navigate("/location");
+    // } else {
+    //   message.error("Wrong Credentials");
+    // }
   };
 
   return (
