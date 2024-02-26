@@ -12,20 +12,29 @@ export default class App extends Component {
         super(props);
         this.state = {
             countryid: 0,
-            stateid: 0
+            stateid: 0,
+            cityid:0,
         };
     }
 
     handleCountryChange = (e) => {
         this.setState({ countryid: e.id });
+        localStorage.setItem('selectedCountry', e.id); 
     }
 
     handleStateChange = (e) => {
         this.setState({ stateid: e.id });
+        localStorage.setItem('selectedState', e.id); 
     }
 
+    handleCityChange = (e) => {
+        this.setState({ cityid: e.id });
+        localStorage.setItem('selectedCity', e.id); 
+    }
+
+
     render() {
-        const { countryid, stateid } = this.state;
+        const { countryid, stateid, cityid } = this.state;
         return (
             <>
                 <HeaderComponent />
@@ -46,9 +55,8 @@ export default class App extends Component {
                         <CitySelect
                             countryid={countryid}
                             stateid={stateid}
-                            onChange={(e) => {
-                                console.log(e);
-                            }}
+                            onChange={this.handleCityChange}
+                    
                             placeHolder="Select City"
                         />
                         <Link to="/hospital"> 

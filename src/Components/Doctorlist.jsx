@@ -17,6 +17,7 @@ class Doctorlist extends Component {
 
     handleDoctorlistChange = (value) => {
         this.setState({ selectedDoctorlist: value });
+        localStorage.setItem('selectedDoctor', value); 
     }
 
     render() {

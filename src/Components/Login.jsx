@@ -1,14 +1,16 @@
+import { useState } from "react";
 import { Form, Input, Button, Layout, Card, message } from "antd";
 import { useNavigate } from "react-router-dom";
 import HeaderComponent from "./Header";
 import "../assets/sass/login.scss";
+import Appointment from "./Appointment";
 
 const { Content } = Layout;
 
 const Login = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-
+  
   const onFinish = async (values) => {
     const { email, password } = values;
     const response = await fetch("http://localhost:5000/login", {
@@ -25,6 +27,9 @@ const Login = () => {
       navigate("/admin");
     } else if (response.ok) {
       message.success(`Welcome , ${data.user.name}!`);
+      console.log("Login success :)")
+      localStorage.setItem("userEmail", email);
+      
       form.resetFields();
       navigate("/location");
     } else {
@@ -78,6 +83,7 @@ const Login = () => {
               </Form.Item>
             </Form>
           </Card>
+          
         </div>
       </Content>
     </>

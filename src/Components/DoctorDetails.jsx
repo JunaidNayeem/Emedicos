@@ -53,7 +53,7 @@ const App = () => {
                 >
                     {contentListNoTitle[activeTabKey]}
                 </Card>
-                <Link to="/">
+                <Link to="/appointment">
                     <div className='Button'><Button type="primary">Book Appointment</Button></div>
                 </Link>
 

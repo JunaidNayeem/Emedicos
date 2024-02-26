@@ -17,6 +17,7 @@ class Hospital extends Component {
 
     handleHospitalChange = (value) => {
         this.setState({ selectedHospital: value });
+        localStorage.setItem('selectedHospital', value); 
     }
 
     render() {
