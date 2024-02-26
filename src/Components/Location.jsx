@@ -30,7 +30,7 @@ export default class App extends Component {
                 <HeaderComponent />
                 <Content>
                     <div className="location">
-                        <h6>Country</h6>
+                        {/* <h6>Country</h6>
                         <CountrySelect
                             value={countryid} 
                             disabled={true} 
@@ -44,7 +44,7 @@ export default class App extends Component {
                             disabled={true} 
                             onChange={this.handleStateChange}
                             placeHolder="BIHAR"
-                        />
+                        /> */}
                         <h6>City</h6>
                         <CitySelect
                             countryid={countryid}
