@@ -19,7 +19,7 @@ export default function QueuePage() {
   const fetchPatients = async () => {
     try {
       const response = await axios.get(
-        "http://20.197.40.159:8000/get-patient/"
+        "https://emedicos.pythonanywhere.com/get-patient/"
       );
       setPatients(response.data);
       setFilteredPatients(response.data);
@@ -47,7 +47,7 @@ export default function QueuePage() {
       };
 
       const response = await axios.post(
-        "http://20.197.40.159:8000/add-patient/",
+        "https://emedicos.pythonanywhere.com/add-patient/",
         requestData
       );
       console.log("API Response:", response.data);
