@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 
 const { Header } = Layout;
 
+const LoggedIn = localStorage.getItem("authorized");
+
 const HeaderComponent = () => {
   const navigate = useNavigate();
 
@@ -24,7 +26,7 @@ const HeaderComponent = () => {
 
   const dropMenu = (
     <Menu>
-      <Menu.Item key="logout" onClick={handleLogout}>
+      <Menu.Item key="logout" onClick={handleLogout} disabled={LoggedIn}>
         <LogoutOutlined />
         Logout
       </Menu.Item>
@@ -38,7 +40,7 @@ const HeaderComponent = () => {
           Emedicos
         </div>
         <div>
-          <Dropdown overlay={dropMenu} placement="bottomRight">
+          <Dropdown menu={dropMenu} placement="bottomRight">
             <Avatar icon={<UserOutlined />} style={{ cursor: "pointer" }} />
           </Dropdown>
         </div>

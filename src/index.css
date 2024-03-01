@@ -4,6 +4,7 @@ body {
 }
 button {
   background-color: #8579a7 !important;
+  color: white !important;
 }
 .ant-layout-content {
   height: 90vh;

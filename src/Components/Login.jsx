@@ -10,28 +10,13 @@ const { Content } = Layout;
 const Login = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
-  
+
   const onFinish = async (values) => {
     const { email, password } = values;
-    const response = await fetch("http://localhost:5000/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(values),
-    });
-    const data = await response.json();
     if (email === "admin@gmail.com" && password === "Admin@123") {
       localStorage.setItem("authorized", true);
       message.success("Logged in Successfully");
-      navigate("/admin");
-    } else if (response.ok) {
-      message.success(`Welcome , ${data.user.name}!`);
-      console.log("Login success :)")
-      localStorage.setItem("userEmail", email);
-      
-      form.resetFields();
-      navigate("/location");
+      navigate("/list");
     } else {
       message.error("Wrong Credentials");
     }
@@ -83,7 +68,6 @@ const Login = () => {
               </Form.Item>
             </Form>
           </Card>
-          
         </div>
       </Content>
     </>
