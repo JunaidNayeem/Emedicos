@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import HeaderComponent from "./Header";
 import { Modal, Form, Flex, Input, Button, Space, Layout, Table } from "antd";
-import { EditOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { CheckOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import axios from "axios";
 const { Content } = Layout;
 
@@ -34,6 +35,29 @@ export default function QueuePage() {
 
   const handleCancel = () => {
     setIsModalOpen(false);
+  };
+
+  const handleNextPatient = () => {
+    const currentPatient = filteredPatients.find(
+      (patient) => patient.status === 0
+    );
+
+    if (currentPatient) {
+      console.log(currentPatient.queuePos);
+      localStorage.setItem("Current", currentPatient.queuePos);
+      dequeue(currentPatient);
+    }
+  };
+
+  const dequeue = async (value) => {
+    try {
+      const response = await axios.get(
+        `https://emedicos.pythonanywhere.com/update-patient-status/${value.patient_id}`
+      );
+      fetchPatients();
+    } catch (error) {
+      console.error("Failed to fetch patients:", error);
+    }
   };
 
   const handleOk = async () => {
@@ -100,21 +124,14 @@ export default function QueuePage() {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      render: (status) => (status === 0 ? "Active" : "Inactive"),
-    },
-    {
-      title: "Actions",
-      key: "actions",
-      render: (_, record) => (
-        <span>
-          <a>
-            <EditOutlined />
-          </a>
-          <a>
-            <DeleteOutlined />
-          </a>
-        </span>
-      ),
+      render: (status) =>
+        status === 0 ? (
+          "Not Diagnosed"
+        ) : (
+          <span>
+            <CheckOutlined /> Diagnosed
+          </span>
+        ),
     },
   ];
 
@@ -131,14 +148,15 @@ export default function QueuePage() {
           <Input.Search
             placeholder="Search by patient name"
             onSearch={handleSearch}
-            style={{ width: 200 }}
+            style={{ width: 300 }}
           />
+          <Button onClick={handleNextPatient}>Next Pateint</Button>
         </Flex>
         <Table dataSource={filteredPatients} columns={columns} />
       </div>
       <Modal
         title="Patient Details"
-        visible={isModalOpen}
+        open={isModalOpen}
         onCancel={handleCancel}
         onOk={handleOk}
         confirmLoading={loading}

@@ -1,75 +1,41 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { Layout, Card } from "antd";
-import HeaderComponent from "./Header";
-import "../assets/sass/appointment.scss";
+import React, { useState, useEffect } from "react";
 
-const { Content } = Layout;
+const DigitalNumberFontStyle = {
+  fontFamily: "Orbitron",
+  fontSize: "24em",
+  fontWeight: "bold",
+  color: "#000",
+};
 
-const Appointment = () => {
-  const [userData, setUserData] = useState(null);
-  const [selectedCity, setSelectedCity] = useState(null);
-  const [selectedHospital, setSelectedHospital] = useState(null);
-  const [selectedDoctor, setSelectedDoctor] = useState(null);
+const centerTextStyle = {
+  display: "flex",
+  justifyContent: "center",
+  alignItems: "center",
+  height: "100vh", // 100% of the viewport height
+};
+
+const QueuePositionDisplay = () => {
+  const [queuePosition, setQueuePosition] = useState(1);
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        //const email="apple@gmail.com"
-        const email = localStorage.getItem("userEmail");
-        const response = await axios.get(`http://localhost:5000/appointment`, {
-          params: {
-            email: email,
-          },
-        });
-        setUserData(response.data);
-      } catch (error) {
-        console.error("Failed to fetch user data:", error);
+    // Update the queue position every second (1000 milliseconds)
+    const intervalId = setInterval(() => {
+      const storedPosition = localStorage.getItem("Current");
+
+      if (storedPosition) {
+        setQueuePosition(parseInt(storedPosition, 10));
       }
-    };
-    fetchUserData();
+    }, 1);
+
+    // Clear the interval on component unmount
+    return () => clearInterval(intervalId);
   }, []);
-  useEffect(() => {
-    const hospital = localStorage.getItem("selectedHospital");
-    const city = localStorage.getItem("selectedCity");
-    const doctor = localStorage.getItem("selectedDoctor");
-    setSelectedCity(city);
-    setSelectedHospital(hospital);
-    setSelectedDoctor(doctor);
-  }, []);
+
   return (
-    <>
-      <HeaderComponent />
-      <Content>
-        <div className="Appointment-Container">
-          <h1>Appointment</h1>
-          <Card>
-            {userData && (
-              <div className="appdetails">
-                <p>Name: {userData.name}</p>
-                <p>Email: {userData.email}</p>
-                <p>Phone: {userData.phone}</p>
-                <p>Gender: {userData.gender}</p>
-                <p>Age: {userData.age}</p>
-                <div>
-                  <h2>city:</h2>
-                  <p>{selectedCity}</p>
-                </div>
-                <div>
-                  <h2>Hospital:</h2>
-                  <p>{selectedHospital}</p>
-                </div>
-                <div>
-                  <h2>Doctor:</h2>
-                  <p>{selectedDoctor}</p>
-                </div>
-              </div>
-            )}
-          </Card>
-        </div>
-      </Content>
-    </>
+    <div style={DigitalNumberFontStyle}>
+      <div style={centerTextStyle}>{queuePosition}</div>
+    </div>
   );
 };
 
-export default Appointment;
+export default QueuePositionDisplay;

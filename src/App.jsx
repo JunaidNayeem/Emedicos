@@ -10,7 +10,7 @@ const RoutesCond = () => {
         {/* <Route path="/" element={<Login />} /> */}
         {/* <Route path="/" element={<Register />} /> */}
         <Route path="/" element={<QueuePage />} />
-        <Route path="/appointment" element={<Appointment />} />
+        <Route path="/display" element={<Appointment />} />
       </Routes>
     </BrowserRouter>
   );
