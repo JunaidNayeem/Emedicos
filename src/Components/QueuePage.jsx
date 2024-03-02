@@ -4,6 +4,7 @@ import { Modal, Form, Flex, Input, Button, Space, Layout, Table } from "antd";
 import { CheckOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { current } from "@reduxjs/toolkit";
 const { Content } = Layout;
 
 export default function QueuePage() {
@@ -113,6 +114,20 @@ export default function QueuePage() {
       title: "Queue Position",
       dataIndex: "queuePos",
       key: "queuePos",
+      render: (queuePos) => {
+        const isCurrent = queuePos == localStorage.getItem("Current");
+        return (
+          <span
+            style={{
+              border: isCurrent ? "1px solid #0aff0a" : "none",
+              background: isCurrent ? "#0aff0a" : "none",
+              padding: "5px",
+            }}
+          >
+            {queuePos}
+          </span>
+        );
+      },
     },
     {
       title: "Created At",
