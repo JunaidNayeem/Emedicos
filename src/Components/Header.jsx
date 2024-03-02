@@ -24,7 +24,7 @@ const HeaderComponent = () => {
     backgroundColor: "#8579a7",
   };
 
-  const dropMenu = (
+  const profMenu = (
     <Menu>
       <Menu.Item key="logout" onClick={handleLogout} disabled={LoggedIn}>
         <LogoutOutlined />
@@ -40,7 +40,7 @@ const HeaderComponent = () => {
           Emedicos
         </div>
         <div>
-          <Dropdown menu={dropMenu} placement="bottomRight">
+          <Dropdown key="uniqueKey" menu={profMenu} placement="bottomRight">
             <Avatar icon={<UserOutlined />} style={{ cursor: "pointer" }} />
           </Dropdown>
         </div>

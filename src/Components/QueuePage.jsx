@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 import HeaderComponent from "./Header";
-import { Modal, Form, Flex, Input, Button, Space, Layout, Table } from "antd";
-import { CheckOutlined, PlusOutlined, DeleteOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import { Modal, Form, Flex, Input, Button, Table, message } from "antd";
+import { CheckOutlined, PlusOutlined } from "@ant-design/icons";
 import axios from "axios";
-import { current } from "@reduxjs/toolkit";
-const { Content } = Layout;
+import "../assets/sass/queue.scss";
 
 export default function QueuePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -13,6 +11,9 @@ export default function QueuePage() {
   const [loading, setLoading] = useState(false);
   const [patients, setPatients] = useState([]);
   const [filteredPatients, setFilteredPatients] = useState([]);
+  const [skipPatients, setSkipPatients] = useState([]);
+  const isCurrentQueue = (queuePos) =>
+    queuePos == localStorage.getItem("Current");
 
   useEffect(() => {
     fetchPatients();
@@ -38,22 +39,35 @@ export default function QueuePage() {
     setIsModalOpen(false);
   };
 
-  const handleNextPatient = () => {
+  const handleSkipPatient = () => {
     const currentPatient = filteredPatients.find(
-      (patient) => patient.status === 0
+      (patient) =>
+        patient.status === 0 && !skipPatients.includes(patient.queuePos)
     );
 
     if (currentPatient) {
-      console.log(currentPatient.queuePos);
+      setSkipPatients([...skipPatients, currentPatient.queuePos]);
+      localStorage.setItem("Current", currentPatient.queuePos + 1);
+      dequeue(currentPatient.patient_id + 1);
+    }
+  };
+
+  const handleNextPatient = () => {
+    const currentPatient = filteredPatients.find(
+      (patient) =>
+        patient.status === 0 && !skipPatients.includes(patient.queuePos)
+    );
+
+    if (currentPatient) {
       localStorage.setItem("Current", currentPatient.queuePos);
-      dequeue(currentPatient);
+      dequeue(currentPatient.patient_id);
     }
   };
 
   const dequeue = async (value) => {
     try {
-      const response = await axios.get(
-        `https://emedicos.pythonanywhere.com/update-patient-status/${value.patient_id}`
+      await axios.get(
+        `https://emedicos.pythonanywhere.com/update-patient-status/${value}`
       );
       fetchPatients();
     } catch (error) {
@@ -75,8 +89,7 @@ export default function QueuePage() {
         "https://emedicos.pythonanywhere.com/add-patient/",
         requestData
       );
-      console.log("API Response:", response.data);
-
+      message.info("Pateint added successfully");
       form.resetFields();
       setIsModalOpen(false);
       await fetchPatients();
@@ -114,20 +127,11 @@ export default function QueuePage() {
       title: "Queue Position",
       dataIndex: "queuePos",
       key: "queuePos",
-      render: (queuePos) => {
-        const isCurrent = queuePos == localStorage.getItem("Current");
-        return (
-          <span
-            style={{
-              border: isCurrent ? "1px solid #0aff0a" : "none",
-              background: isCurrent ? "#0aff0a" : "none",
-              padding: "5px",
-            }}
-          >
-            {queuePos}
-          </span>
-        );
-      },
+      render: (queuePos) => (
+        <span className={isCurrentQueue(queuePos) ? "current-queue" : ""}>
+          {queuePos}
+        </span>
+      ),
     },
     {
       title: "Created At",
@@ -150,6 +154,10 @@ export default function QueuePage() {
     },
   ];
 
+  const rowClassName = (record) => ({
+    "current-row": isCurrentQueue(record.queuePos),
+  });
+
   return (
     <>
       <HeaderComponent />
@@ -166,8 +174,13 @@ export default function QueuePage() {
             style={{ width: 300 }}
           />
           <Button onClick={handleNextPatient}>Next Pateint</Button>
+          <Button onClick={handleSkipPatient}>Skip Pateint</Button>
         </Flex>
-        <Table dataSource={filteredPatients} columns={columns} />
+        <Table
+          columns={columns}
+          dataSource={filteredPatients}
+          rowClassName={(record) => rowClassName(record)}
+        />
       </div>
       <Modal
         title="Patient Details"

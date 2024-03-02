@@ -11,14 +11,13 @@ const centerTextStyle = {
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
-  height: "100vh", // 100% of the viewport height
+  height: "100vh",
 };
 
 const QueuePositionDisplay = () => {
-  const [queuePosition, setQueuePosition] = useState(1);
+  const [queuePosition, setQueuePosition] = useState(0);
 
   useEffect(() => {
-    // Update the queue position every second (1000 milliseconds)
     const intervalId = setInterval(() => {
       const storedPosition = localStorage.getItem("Current");
 
@@ -26,8 +25,6 @@ const QueuePositionDisplay = () => {
         setQueuePosition(parseInt(storedPosition, 10));
       }
     }, 1);
-
-    // Clear the interval on component unmount
     return () => clearInterval(intervalId);
   }, []);
 
